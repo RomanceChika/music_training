@@ -12,7 +12,7 @@ function TimerSettingButtons({ timeSettings, setTimerSetting }) {
 
   return (
     <div>
-      <p>制限時価の変更</p>
+      <p>制限時間の変更</p>
       {timeSettings.map(timeSetting => (
         <button 
           key={timeSetting} 

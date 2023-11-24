@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+//import { Synth, Transport } from 'tone';
 import './NoteFromInterval.css'
 import { sortArray, generateShuffledCombinations } from '../../functions/generateRandomInterval.js';
 import TimerSettingButtons from '../../components/TimeSettingButtons/TimeSettingButtons.js';
 import NoteButtons from '../../components/NoteButtons/NoteButtons.js';
 import IntervalsTable from '../../components/IntervalsTable/IntervalsTable.js';
+import usePlayNote from '../../hooks/usePlayNote';
 
 function NoteFromInterval() {
   const [intervalData, setIntervalData] = useState(generateShuffledCombinations());
@@ -17,9 +19,15 @@ function NoteFromInterval() {
   const [isStarted, setIsStarted] = useState(false); // 開始・停止の状態を管理する状態変数を追加
   const [sortedResults, setSortedResults] = useState([]);
 
+  //変更時に画面に反映したい項目のフックを作成
   useEffect(() => {
     setSortedResults(sortArray(intervalData));
   }, [intervalData]);
+
+  useEffect(() => {
+    setTimeLeft(timerSetting);
+  }, [timerSetting]);
+
 
   useEffect(() => {
     if (isStarted && timeLeft > 0) {
@@ -45,13 +53,14 @@ function NoteFromInterval() {
   }, [timeLeft, isStarted]);
 
   const directionTranslation = {
-    up: '上',
-    down: '下'
+    up: '上↑',
+    down: '下↓'
   };
 
   // 開始ボタンのハンドラ
   function handleStartButtonClick() {
     setIsStarted(true);
+    setTimeLeft(timerSetting); // 開始時に0になると即時誤答となるので、制限時間を設定用の状態変数から取得
   }
 
   // 停止ボタンのハンドラ
@@ -67,6 +76,20 @@ function NoteFromInterval() {
     setIncorrectCount(0);
     setIntervalData(generateShuffledCombinations());
   }
+
+  // 音を鳴らす
+  const playNote = usePlayNote();
+  useEffect(() => {
+    // 正答発表時に基準音, 0.5sおいて正解音を鳴らす
+    if (showResult) {
+      playNote("C4");
+      const timerId = setTimeout(() => playNote("E4"), 500);
+      return () => clearTimeout(timerId);
+    } else {
+      // 問題スタート時に基準音を鳴らす
+      playNote("C4", "1n");
+    }
+  }, [showResult, playNote]);
 
   return (
     <div>

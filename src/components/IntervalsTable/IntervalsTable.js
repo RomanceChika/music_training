@@ -1,4 +1,5 @@
 import React from 'react';
+import './IntervalsTable.css';
 
 function IntervalsTable({ sortedResults }) {
   const baseNotes = [...new Set(sortedResults.map(result => result.baseNote))];

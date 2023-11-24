@@ -42,22 +42,3 @@ div {
     font-weight: bold;
     color: #333;
   }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;  /* テーブルをページ全体に広げる */
-  }
-  
-  th, td {
-    border: 1px solid black;
-    text-align: center;  /* テキストを中央揃えにする */
-    padding: 8px;  /* セル内のテキストと罫線との間にスペースを作る */
-  }
-  
-  .correct {
-    background-color: #c8e6c9;  /* 正答を緑色で表示 */
-  }
-  
-  .wrong {
-    background-color: #ffcdd2;  /* 間違いを赤色で表示 */
-  }

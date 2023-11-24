@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-//import { Synth, Transport } from 'tone';
+import React, { useState, useEffect, useCallback } from 'react';
 import './NoteFromInterval.css'
 import { sortArray, generateShuffledCombinations } from '../../functions/generateRandomInterval.js';
 import TimerSettingButtons from '../../components/TimeSettingButtons/TimeSettingButtons.js';
@@ -14,12 +13,11 @@ function NoteFromInterval() {
   const [answer, setAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
-  const [incorrectCount, setIncorrectCount] = useState(-1);
+  const [incorrectCount, setIncorrectCount] = useState(0);
   const [timerSetting, setTimerSetting] = useState(10); // 制限時間の設定用の状態変数を追加
   const [isStarted, setIsStarted] = useState(false); // 開始・停止の状態を管理する状態変数を追加
   const [sortedResults, setSortedResults] = useState([]);
 
-  //変更時に画面に反映したい項目のフックを作成
   useEffect(() => {
     setSortedResults(sortArray(intervalData));
   }, [intervalData]);
@@ -28,12 +26,11 @@ function NoteFromInterval() {
     setTimeLeft(timerSetting);
   }, [timerSetting]);
 
-
   useEffect(() => {
     if (isStarted && timeLeft > 0) {
       const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timerId);
-    } else if (timeLeft === 0) {
+    } else if (isStarted && timeLeft === 0) {
       setShowResult(true);
       if (intervalData[currentIndex] && answer === intervalData[currentIndex].resultNote) {
         setCorrectCount(correctCount + 1);
@@ -58,7 +55,7 @@ function NoteFromInterval() {
   };
 
   // 開始ボタンのハンドラ
-  function handleStartButtonClick() {
+  async function handleStartButtonClick() {
     setIsStarted(true);
     setTimeLeft(timerSetting); // 開始時に0になると即時誤答となるので、制限時間を設定用の状態変数から取得
   }
@@ -80,16 +77,20 @@ function NoteFromInterval() {
   // 音を鳴らす
   const playNote = usePlayNote();
   useEffect(() => {
-    // 正答発表時に基準音, 0.5sおいて正解音を鳴らす
-    if (showResult) {
-      playNote("C4");
-      const timerId = setTimeout(() => playNote("E4"), 500);
-      return () => clearTimeout(timerId);
-    } else {
-      // 問題スタート時に基準音を鳴らす
-      playNote("C4", "1n");
+    console.log('isStarted:', isStarted);
+    console.log('showResult:', showResult);
+    if (isStarted) {
+      if (showResult) {
+        console.log('Playing C4 and E4');
+        playNote("C4");
+        const timerId = setTimeout(() => playNote("E4"), 500);
+        return () => clearTimeout(timerId);
+      } else {
+        console.log('Playing C4');
+        playNote("C4", "1n");
+      }
     }
-  }, [showResult, playNote]);
+  }, [showResult, playNote, isStarted]);
 
   return (
     <div>

@@ -1,38 +1,64 @@
-.App {
+/* 基本的なレイアウトとフォントスタイル */
+div {
   text-align: center;
+  margin: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: #333;
+  font-size: 2em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  font-size: 1.2em;
+  color: #666;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* 入力フィールドのスタイル */
+input[type="text"] {
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+/* 正答、誤答の表示スタイル */
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+
+/* ボタンのスタイル（必要に応じて） */
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+/* 選択されたボタンのスタイル */
+.selected {
+  background-color: black; /* Green */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* 選択された入力のスタイル */
+.selected-input {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  border: 2px solid #4CAF50;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #333;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

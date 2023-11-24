@@ -4,7 +4,9 @@ import { sortArray, generateShuffledCombinations } from '../../functions/generat
 import TimerSettingButtons from '../../components/TimeSettingButtons/TimeSettingButtons.js';
 import NoteButtons from '../../components/NoteButtons/NoteButtons.js';
 import IntervalsTable from '../../components/IntervalsTable/IntervalsTable.js';
-import usePlayNote from '../../hooks/usePlayNote';
+import usePlayNote from '../../sounds/usePlayNote.js';
+import convertSoundToTone from '../../functions/convertSoundToTone.js';
+import getTargetNoteOctave from '../../functions/getTargetNoteOctave.js';
 
 function NoteFromInterval() {
   const [intervalData, setIntervalData] = useState(generateShuffledCombinations());
@@ -77,17 +79,21 @@ function NoteFromInterval() {
   // 音を鳴らす
   const playNote = usePlayNote();
   useEffect(() => {
-    console.log('isStarted:', isStarted);
-    console.log('showResult:', showResult);
     if (isStarted) {
+      // 基準音をtone.jsで鳴らせる音の文字列に変換
+      const baseNote = intervalData[currentIndex].baseNote;
+      const toneBaseNote = convertSoundToTone(baseNote);
       if (showResult) {
-        console.log('Playing C4 and E4');
-        playNote("C4");
-        const timerId = setTimeout(() => playNote("E4"), 500);
+        // 正答を上下で一番近い音でかつtone.jsで鳴らせる音の文字列に変換
+        const resultNote = intervalData[currentIndex].resultNote;
+        const direction = intervalData[currentIndex].direction;
+        const toneResultNoteOctave = getTargetNoteOctave(baseNote, 4, resultNote, direction);
+        const toneResultNote = convertSoundToTone(resultNote, toneResultNoteOctave);
+        playNote(toneBaseNote);
+        const timerId = setTimeout(() => playNote(toneResultNote), 500);
         return () => clearTimeout(timerId);
       } else {
-        console.log('Playing C4');
-        playNote("C4", "1n");
+        playNote(toneBaseNote, "1n");
       }
     }
   }, [showResult, playNote, isStarted]);

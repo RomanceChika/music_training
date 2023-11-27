@@ -39,7 +39,7 @@ function NoteButtons({ setAnswer }) {
   ));
 
   return (
-    <div>
+    <div className="note-buttons">
       <div>{noteButtons}</div>
       <div>{accidentalButtons}</div>
     </div>

@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 const SoundContext = createContext();
 
 export function SoundProvider({ children }) {
-  const [isSoundOn, setIsSoundOn] = useState(true);
+  const [isSoundOn, setIsSoundOn] = useState(false);
 
   return (
     <SoundContext.Provider value={{ isSoundOn, setIsSoundOn }}>

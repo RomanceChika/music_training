@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useAudio } from '../contexts/AudioContext';
-import { useSound } from '../contexts/SoundContext';
-import * as Tone from 'tone';
+import { useCallback } from "react";
+import { useAudio } from "../contexts/AudioContext";
+import { useSound } from "../contexts/SoundContext";
+import * as Tone from "tone";
 
 /**
  * usePlayNoteは、音を再生するためのカスタムフックです。
@@ -17,14 +17,17 @@ function usePlayNote() {
 
   // playNote関数を定義します。
   // この関数は、指定された音を指定された時間に再生します。
-  const playNote = useCallback(async (note, duration = '8n', time = `+${0.1}`) => {
-    if (isSoundOn && note) {
-      await Tone.start();
-      Transport.scheduleOnce((time) => {
-        synth.triggerAttackRelease(note, duration);
-      }, time);
-    }
-  }, [synth, isSoundOn, Transport]);
+  const playNote = useCallback(
+    async (note, duration = "8n", time = `+${0.1}`) => {
+      if (isSoundOn && note) {
+        //await Tone.start();
+        Transport.scheduleOnce((time) => {
+          synth.triggerAttackRelease(note, duration);
+        }, time);
+      }
+    },
+    [synth, isSoundOn, Transport]
+  );
 
   // Transportを開始します。
   Transport.start();

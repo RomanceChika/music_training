@@ -1,6 +1,5 @@
-/* ボタンのスタイル（必要に応じて） */
-.note-buttons button {
-  background-color: #4CAF50; /* Green */
+.sound-toggle-button button {
+  background-color: #4caf50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -13,18 +12,18 @@
 }
 
 /* 選択されたボタンのスタイル */
-.note-buttons .selected {
+.sound-toggle-button .selected {
   background-color: black; /* Green */
   color: white;
 }
 
 /* ボタンのレイアウトを改善 */
-.note-buttons button {
+.sound-toggle-button button {
   flex: 1 0 auto; /* ボタンを均等に分布させる */
 }
 
 /* ボタンを含むdivのスタイル */
-.note-buttons {
+.sound-toggle-button {
   display: flex; /* ボタンを横並びにする */
   flex-wrap: wrap; /* 必要に応じてボタンを折り返す */
   justify-content: space-between; /* ボタン間のスペースを均等に分布させる */

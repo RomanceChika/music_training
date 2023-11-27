@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import './NoteFromInterval.css'
-import { sortArray, generateShuffledCombinations } from '../../functions/generateRandomInterval.js';
-import TimerSettingButtons from '../../components/TimeSettingButtons/TimeSettingButtons.js';
-import NoteButtons from '../../components/NoteButtons/NoteButtons.js';
-import IntervalsTable from '../../components/IntervalsTable/IntervalsTable.js';
-import usePlayNote from '../../sounds/usePlayNote.js';
-import convertSoundToTone from '../../functions/convertSoundToTone.js';
-import getTargetNoteOctave from '../../functions/getTargetNoteOctave.js';
+import React, { useState, useEffect, useCallback } from "react";
+import "./NoteFromInterval.css";
+import {
+  sortArray,
+  generateShuffledCombinations,
+} from "../../functions/generateRandomInterval.js";
+import TimerSettingButtons from "../../components/TimeSettingButtons/TimeSettingButtons.js";
+import NoteButtons from "../../components/NoteButtons/NoteButtons.js";
+import IntervalsTable from "../../components/IntervalsTable/IntervalsTable.js";
+import usePlayNote from "../../sounds/usePlayNote.js";
+import convertSoundToTone from "../../functions/convertSoundToTone.js";
+import getTargetNoteOctave from "../../functions/getTargetNoteOctave.js";
 
 function NoteFromInterval() {
-  const [intervalData, setIntervalData] = useState(generateShuffledCombinations());
+  const [intervalData, setIntervalData] = useState(
+    generateShuffledCombinations()
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [answer, setAnswer] = useState(null);
@@ -34,26 +39,29 @@ function NoteFromInterval() {
       return () => clearTimeout(timerId);
     } else if (isStarted && timeLeft === 0) {
       setShowResult(true);
-      if (intervalData[currentIndex] && answer === intervalData[currentIndex].resultNote) {
+      if (
+        intervalData[currentIndex] &&
+        answer === intervalData[currentIndex].resultNote
+      ) {
         setCorrectCount(correctCount + 1);
-        intervalData[currentIndex].isCorrect = true;  // 正答フラグを追加
+        intervalData[currentIndex].isCorrect = true; // 正答フラグを追加
       } else {
         setIncorrectCount(incorrectCount + 1);
-        intervalData[currentIndex].isCorrect = false;  // 正答フラグを追加
+        intervalData[currentIndex].isCorrect = false; // 正答フラグを追加
       }
-      intervalData[currentIndex].userAnswer = answer;  // ユーザーの回答を追加
+      intervalData[currentIndex].userAnswer = answer; // ユーザーの回答を追加
       const timerId = setTimeout(() => {
         setShowResult(false);
-        setCurrentIndex(currentIndex + 1);  // 次の問題へ進む
+        setCurrentIndex(currentIndex + 1); // 次の問題へ進む
         setTimeLeft(timerSetting); // 制限時間を設定用の状態変数から取得
-      },2000);
+      }, 2000);
       return () => clearTimeout(timerId);
     }
   }, [timeLeft, isStarted]);
 
   const directionTranslation = {
-    up: '上↑',
-    down: '下↓'
+    up: "上↑",
+    down: "下↓",
   };
 
   // 開始ボタンのハンドラ
@@ -87,8 +95,16 @@ function NoteFromInterval() {
         // 正答を上下で一番近い音でかつtone.jsで鳴らせる音の文字列に変換
         const resultNote = intervalData[currentIndex].resultNote;
         const direction = intervalData[currentIndex].direction;
-        const toneResultNoteOctave = getTargetNoteOctave(baseNote, 4, resultNote, direction);
-        const toneResultNote = convertSoundToTone(resultNote, toneResultNoteOctave);
+        const toneResultNoteOctave = getTargetNoteOctave(
+          baseNote,
+          4,
+          resultNote,
+          direction
+        );
+        const toneResultNote = convertSoundToTone(
+          resultNote,
+          toneResultNoteOctave
+        );
         playNote(toneBaseNote);
         const timerId = setTimeout(() => playNote(toneResultNote), 500);
         return () => clearTimeout(timerId);
@@ -99,25 +115,40 @@ function NoteFromInterval() {
   }, [showResult, playNote, isStarted]);
 
   return (
-    <div>
+    <div className="note-from-interval">
       <h1>音程</h1>
       <button onClick={handleStartButtonClick}>開始</button>
       <button onClick={handleStopButtonClick}>停止</button>
       <button onClick={handleResetButtonClick}>リセット</button>
-      <p>正解数: {correctCount}/{correctCount + incorrectCount}</p>
+      <p>
+        正解数: {correctCount}/{correctCount + incorrectCount}
+      </p>
       {isStarted && (
         <div>
           <p>基準音: {intervalData[currentIndex].baseNote}</p>
           <p>音程: {intervalData[currentIndex].interval}</p>
-          <p>方向: {directionTranslation[intervalData[currentIndex].direction]}</p>
-          <p className="selected-input">選択された入力: {answer}</p> {/* 選択された入力を表示 */}
+          <p>
+            方向: {directionTranslation[intervalData[currentIndex].direction]}
+          </p>
+          <p className="selected-input">選択された入力: {answer}</p>{" "}
+          {/* 選択された入力を表示 */}
           <p>残り時間: {timeLeft}秒</p>
           {showResult && (
             <div>
-              <p className={answer === intervalData[currentIndex].resultNote ? 'correct' : 'wrong'}>
-                {answer === intervalData[currentIndex].resultNote ? '正答です' : '誤答です'}
+              <p
+                className={
+                  answer === intervalData[currentIndex].resultNote
+                    ? "correct"
+                    : "wrong"
+                }
+              >
+                {answer === intervalData[currentIndex].resultNote
+                  ? "正答です"
+                  : "誤答です"}
               </p>
-              {answer !== intervalData[currentIndex].resultNote && <p>正答は {intervalData[currentIndex].resultNote} でした。</p>}
+              {answer !== intervalData[currentIndex].resultNote && (
+                <p>正答は {intervalData[currentIndex].resultNote} でした。</p>
+              )}
             </div>
           )}
           <NoteButtons setAnswer={setAnswer} />
@@ -132,4 +163,4 @@ function NoteFromInterval() {
   );
 }
 
-export default NoteFromInterval
+export default NoteFromInterval;

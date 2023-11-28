@@ -1,4 +1,5 @@
 import { useSound } from "../../contexts/SoundContext";
+import "./SoundToggleButton.css";
 import * as Tone from "tone";
 
 function SoundToggleButton() {

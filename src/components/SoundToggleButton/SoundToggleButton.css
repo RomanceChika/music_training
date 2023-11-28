@@ -1,0 +1,27 @@
+.sound-toggle-button button {
+  background-color: #6495ed; /* CornflowerBlue */
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: auto; /* Button width set to auto */
+}
+
+/* Improved button layout */
+.sound-toggle-button button {
+  flex: 1 0 auto; /* Distribute buttons evenly */
+}
+
+/* Style of div containing buttons */
+.sound-toggle-button {
+  display: flex; /* Arrange buttons side by side */
+  flex-wrap: wrap; /* Wrap buttons as needed */
+  justify-content: center; /* Center buttons */
+  align-items: center; /* Center buttons vertically */
+  text-align: center; /* Center button text */
+}

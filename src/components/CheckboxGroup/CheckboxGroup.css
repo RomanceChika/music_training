@@ -1,0 +1,27 @@
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.checkbox-group p {
+  font-size: 1.3em; /* タイトルの文字を大きくします */
+  margin-bottom: 10px;
+}
+
+.checkbox-group div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  font-size: 1.2em; /* チェックボックスの文字を大きくします */
+}
+
+.checkbox-group label span {
+  margin-left: 10px;
+}

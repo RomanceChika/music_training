@@ -1,10 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
 import NoteFromInterval from "./contents/NoteFromInterval/NoteFromInterval";
-import IntervalFromSheet from "./contents/IntervalFromSheet/IntervalFromSheet"
-import './App.css';
-import { SoundProvider } from './contexts/SoundContext';
-import { AudioProvider } from './contexts/AudioContext';
-import SoundToggleButton from './components/SountToggleButton/SoundToggleButton';
+import CodeFromDegree from "./contents/CodeFromDegree/CodeFromDegree";
+import IntervalFromSheet from "./contents/IntervalFromSheet/IntervalFromSheet";
+import "./App.css";
+import { SoundProvider } from "./contexts/SoundContext";
+import { AudioProvider } from "./contexts/AudioContext";
+import SoundToggleButton from "./components/SoundToggleButton/SoundToggleButton";
 
 function App() {
   return (
@@ -15,10 +21,19 @@ function App() {
             <nav className="nav">
               <ul className="nav-list">
                 <li className="nav-item">
-                  <NavLink to="/note-from-interval" activeClassName="active">Note From Interval</NavLink>
+                  <NavLink to="/note-from-interval" activeClassName="active">
+                    Note From Interval
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/interval-from-sheet" activeClassName="active">Interval From Sheet</NavLink>
+                  <NavLink to="/code-from-degree" activeClassName="active">
+                    Code From Degree
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/interval-from-sheet" activeClassName="active">
+                    Interval From Sheet
+                  </NavLink>
                 </li>
               </ul>
             </nav>
@@ -26,8 +41,16 @@ function App() {
             <div className="content">
               <SoundToggleButton />
               <Routes>
-                <Route path="/note-from-interval" element={<NoteFromInterval />} />
-                <Route path="/interval-from-sheet" element={<IntervalFromSheet />} />
+                <Route
+                  path="/note-from-interval"
+                  element={<NoteFromInterval />}
+                />
+                <Route path="/code-from-degree" element={<CodeFromDegree />} />
+
+                <Route
+                  path="/interval-from-sheet"
+                  element={<IntervalFromSheet />}
+                />
                 <Route path="/" element={<NoteFromInterval />} />
               </Routes>
             </div>

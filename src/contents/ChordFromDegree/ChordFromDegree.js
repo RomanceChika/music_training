@@ -3,7 +3,7 @@ import { NOTES } from "../../constants/constant.js";
 import { generateShuffledCombinations } from "../../functions/generateRandomScaleCode.js";
 import TimerSettingButtons from "../../components/TimeSettingButtons/TimeSettingButtons.js";
 import ControlButtons from "../../components/ControlButtons/ControlButtons.js";
-import CodeButtons from "../../components/ChordButtons/ChordButtons.js";
+import ChordButtons from "../../components/ChordButtons/ChordButtons.js";
 import SelectedInput from "../../components/SelectedInput/SelectedInput.js";
 import CodesTable from "../../components/CodesTable/CodesTable.js";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay.js";
@@ -11,7 +11,7 @@ import CheckboxGroup from "../../components/CheckboxGroup/CheckboxGroup.js";
 import { sortArray } from "../../functions/arrayUtils.js";
 import usePlayNote from "../../sounds/usePlayNote.js";
 import convertSoundToTone from "../../functions/convertSoundToTone.js";
-import getTargetNoteOctave from "../../functions/getTargetNoteOctave.js";
+import getChordTones from "../../functions/getChordTones.js";
 
 function CodeFromDegree() {
   const [scaleCodeData, setScaleCodeData] = useState(
@@ -19,7 +19,7 @@ function CodeFromDegree() {
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(10);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState("C△7");
   const [showResult, setShowResult] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [timerSetting, setTimerSetting] = useState(10);
@@ -67,29 +67,17 @@ function CodeFromDegree() {
     if (isStarted) {
       if (currentIndex < scaleCodeData.length) {
         // 基準音をtone.jsで鳴らせる音の文字列に変換
-        const tonic = [currentIndex].key;
+        const tonic = scaleCodeData[currentIndex].key;
         const toneTonic = convertSoundToTone(tonic);
         if (showResult) {
-          /** 
-          // 正答を上下で一番近い音でかつtone.jsで鳴らせる音の文字列に変換
-          const resultNote = intervalData[currentIndex].resultNote;
-          const direction = intervalData[currentIndex].direction;
-          const toneResultNoteOctave = getTargetNoteOctave(
-            baseNote,
-            4,
-            resultNote,
-            direction
-          );
-          const toneResultNote = convertSoundToTone(
-            resultNote,
-            toneResultNoteOctave
-          );
-          **/
-          playNote(["C4", "E4", "G4"]);
-          const timerId = setTimeout(() => playNote(toneTonic), 500);
+          // コードネームからコード構成音を算出して鳴らす
+          const chordName = scaleCodeData[currentIndex].result;
+          const chordTones = getChordTones(chordName);
+          playNote(toneTonic);
+          const timerId = setTimeout(() => playNote(chordTones, "4n"), 500);
           return () => clearTimeout(timerId);
         } else {
-          playNote(["D4", "F#4"], "1n");
+          playNote(toneTonic, "1n");
         }
       } else {
         setIsStarted(false);
@@ -150,7 +138,7 @@ function CodeFromDegree() {
             data={scaleCodeData}
             currentIndex={currentIndex}
           />
-          <CodeButtons setAnswer={setAnswer} />
+          <ChordButtons setAnswer={setAnswer} />
         </div>
       )}
       <TimerSettingButtons

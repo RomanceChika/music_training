@@ -5,7 +5,7 @@ import {
   NavLink,
 } from "react-router-dom";
 import NoteFromInterval from "./contents/NoteFromInterval/NoteFromInterval";
-import CodeFromDegree from "./contents/CodeFromDegree/CodeFromDegree";
+import ChordFromDegree from "./contents/ChordFromDegree/ChordFromDegree";
 import IntervalFromSheet from "./contents/IntervalFromSheet/IntervalFromSheet";
 import "./App.css";
 import { SoundProvider } from "./contexts/SoundContext";
@@ -26,7 +26,7 @@ function App() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/code-from-degree" activeClassName="active">
+                  <NavLink to="/chord-from-degree" activeClassName="active">
                     Code From Degree
                   </NavLink>
                 </li>
@@ -45,7 +45,10 @@ function App() {
                   path="/note-from-interval"
                   element={<NoteFromInterval />}
                 />
-                <Route path="/code-from-degree" element={<CodeFromDegree />} />
+                <Route
+                  path="/chord-from-degree"
+                  element={<ChordFromDegree />}
+                />
 
                 <Route
                   path="/interval-from-sheet"

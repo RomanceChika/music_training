@@ -1,34 +1,39 @@
 import getScaleCodesByTonic from "./getScaleCodesByTonic";
+import { shuffleArray } from "./arrayUtils";
 
-const tonicList = [
-  "C♭",
-  "C",
-  "C#",
-  "D♭",
-  "D",
-  "D#",
-  "E♭",
-  "E",
-  "F",
-  "F#",
-  "G♭",
-  "G",
-  "G#",
-  "A♭",
-  "A",
-  "B♭",
-  "B",
-];
+/**
+ * 与えられたキーの配列に基づいてスケールコードの組み合わせを生成します。
+ * 各組み合わせは、キー、スケールコード、および元の順序を示すオブジェクトとして表現されます。
+ *
+ * @param {Array} keys - スケールコードを生成するためのキーの配列。
+ * @return {Array} スケールコードの組み合わせを表すオブジェクトの配列。
+ */
+export function generateCombinations(keys) {
+  let combinations = [];
+  let order = 0;
 
-function generateRandomScaleCode() {
-  const randomKeyIndex = Math.floor(Math.random() * tonicList.length);
-  const randomKey = tonicList[randomKeyIndex];
-  const scaleCodes = getScaleCodesByTonic(randomKey, "Major"); // ここではMajorスケールを使用しています
-  const randomIndex = Math.floor(Math.random() * scaleCodes.length);
-  const randomScaleCode = scaleCodes[randomIndex];
-  randomScaleCode.key = randomKey;
-  randomScaleCode.order = randomIndex;
-  return randomScaleCode;
+  for (let key of keys) {
+    const scaleCodes = getScaleCodesByTonic(key, "Major");
+    for (let scaleCode of scaleCodes) {
+      combinations.push({
+        key: key,
+        degree: scaleCode.degreeName,
+        result: scaleCode.codeName,
+        order: order++,
+      });
+    }
+  }
+
+  return combinations;
 }
 
-export default generateRandomScaleCode;
+/**
+ * 与えられたキーの配列に基づいてスケールコードの組み合わせを生成し、それをシャッフルします。
+ *
+ * @param {Array} keys - スケールコードを生成するためのキーの配列。
+ * @return {Array} シャッフルされたスケールコードの組み合わせを表すオブジェクトの配列。
+ */
+export function generateShuffledCombinations(keys) {
+  const combinations = generateCombinations(keys);
+  return shuffleArray(combinations);
+}

@@ -1,12 +1,12 @@
 import React, { createContext, useContext } from "react";
-import { Synth, Transport } from "tone";
+import { PolySynth, Transport } from "tone";
 
 // Contextを作成
 const AudioContext = createContext();
 
 // Providerコンポーネントを作成
 export function AudioProvider({ children }) {
-  const synth = new Synth().toDestination();
+  const synth = new PolySynth().toDestination();
 
   return (
     <AudioContext.Provider value={{ synth, Transport }}>

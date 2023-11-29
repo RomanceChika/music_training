@@ -4,10 +4,10 @@ import { useSound } from "../contexts/SoundContext";
 import * as Tone from "tone";
 
 /**
- * usePlayNoteは、音を再生するためのカスタムフックです。
+ * usePlayNoteは、音を再生するための関数です
  * @returns {Function} playNote - 音を再生する関数。
  * playNoteは以下のパラメータを取ります：
- * @param {string} note - 再生する音の名前（例："C4"）。
+ * @param {(string|string[])} note - 再生する音の名前（例："C4"）または音の名前の配列（例：["C4", "E4"]）。
  * @param {string} duration - 音の持続時間（デフォルト："8n"）。
  * @param {string} time - 音を再生する時間（デフォルト："+0"）。
  */
@@ -20,7 +20,6 @@ function usePlayNote() {
   const playNote = useCallback(
     async (note, duration = "8n", time = `+${0.1}`) => {
       if (isSoundOn && note) {
-        //await Tone.start();
         Transport.scheduleOnce((time) => {
           synth.triggerAttackRelease(note, duration);
         }, time);

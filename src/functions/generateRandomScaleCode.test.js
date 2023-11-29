@@ -1,37 +1,45 @@
 import {
   generateCombinations,
   generateShuffledCombinations,
-} from "./generateRandomInterval";
+} from "./generateRandomScaleCode";
 
 describe("generateCombinations", () => {
-  it("should generate combinations based on given notes and intervals", () => {
-    const notes = ["C", "D"];
-    const intervals = ["m2", "M2"];
-    const combinations = generateCombinations(notes, intervals);
+  it("should generate scale code combinations based on the given keys", () => {
+    const keys = ["C", "D"];
+    const combinations = generateCombinations(keys);
 
-    expect(combinations.length).toBe(8); // 2 notes * 2 intervals * 2 directions = 8 combinations
-    expect(combinations[0]).toEqual({
-      baseNote: "C",
-      interval: "m2",
-      direction: "up",
-      resultNote: "D♭",
-      order: 0,
+    // Check that the combinations array has the correct length
+    expect(combinations.length).toBe(14);
+
+    // Check that each combination has the correct properties
+    combinations.forEach((combination, index) => {
+      expect(combination).toHaveProperty("key");
+      expect(combination).toHaveProperty("degree");
+      expect(combination).toHaveProperty("result");
+      expect(combination).toHaveProperty("order");
+      expect(combination.order).toBe(index);
     });
   });
 });
 
 describe("generateShuffledCombinations", () => {
-  it("should generate and shuffle combinations based on given notes and intervals", () => {
-    const notes = ["C", "D"];
-    const intervals = ["m2", "M2"];
-    const combinations = generateShuffledCombinations(notes, intervals);
+  it("should generate and shuffle scale code combinations based on the given keys", () => {
+    const keys = ["C", "D"];
+    const combinations = generateShuffledCombinations(keys);
 
-    expect(combinations.length).toBe(8); // 2 notes * 2 intervals * 2 directions = 8 combinations
-    // We can't predict the exact order due to shuffling, but we can check the length and the structure of the elements
-    expect(combinations[0]).toHaveProperty("baseNote");
-    expect(combinations[0]).toHaveProperty("interval");
-    expect(combinations[0]).toHaveProperty("direction");
-    expect(combinations[0]).toHaveProperty("resultNote");
-    expect(combinations[0]).toHaveProperty("order");
+    // Check that the combinations array has the correct length
+    expect(combinations.length).toBe(14);
+
+    // Check that each combination has the correct properties
+    combinations.forEach((combination) => {
+      expect(combination).toHaveProperty("key");
+      expect(combination).toHaveProperty("degree");
+      expect(combination).toHaveProperty("result");
+      expect(combination).toHaveProperty("order");
+    });
+
+    // Check that the combinations are shuffled (it's possible but highly unlikely that they will be in the original order)
+    const orders = combinations.map((combination) => combination.order);
+    expect(orders).not.toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
   });
 });

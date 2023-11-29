@@ -1,21 +1,15 @@
-function ResultDisplay({ showResult, answer, intervalData, currentIndex }) {
+function ResultDisplay({ showResult, answer, data, currentIndex }) {
   if (!showResult) {
     return null;
   }
 
   return (
     <div className="result-display">
-      <p
-        className={
-          answer === intervalData[currentIndex].resultNote ? "correct" : "wrong"
-        }
-      >
-        {answer === intervalData[currentIndex].resultNote
-          ? "正答です"
-          : "誤答です"}
+      <p className={answer === data[currentIndex].result ? "correct" : "wrong"}>
+        {answer === data[currentIndex].result ? "正答です" : "誤答です"}
       </p>
-      {answer !== intervalData[currentIndex].resultNote && (
-        <p>正答は {intervalData[currentIndex].resultNote} でした。</p>
+      {answer !== data[currentIndex].result && (
+        <p>正答は {data[currentIndex].result} でした。</p>
       )}
     </div>
   );

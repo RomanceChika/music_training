@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-function CodeButtons({ setAnswer }) {
-  const [selectedNote, setSelectedNote] = useState("");
+function ChordButtons({ setAnswer }) {
+  const [selectedNote, setSelectedNote] = useState("C");
   const [selectedAccidental, setSelectedAccidental] = useState("");
-  const [selectedCodeType, setSelectedCodeType] = useState("");
+  const [selectedCodeType, setSelectedCodeType] = useState("△7");
 
   const notes = ["C", "D", "E", "F", "G", "A", "B"];
   const accidentals = ["♭♭", "♭", "", "#", "##"];
@@ -63,4 +63,4 @@ function CodeButtons({ setAnswer }) {
   );
 }
 
-export default CodeButtons;
+export default ChordButtons;

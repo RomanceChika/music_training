@@ -23,6 +23,7 @@ export function generateCombinations(notes, intervals) {
           interval: interval,
           direction: direction,
           resultNote: resultNote,
+          result: resultNote,
           order: order++, // 元の順番を示すキーを追加
         });
       }

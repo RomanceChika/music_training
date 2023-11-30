@@ -5,7 +5,7 @@ import TimerSettingButtons from "../../components/TimeSettingButtons/TimeSetting
 import ControlButtons from "../../components/ControlButtons/ControlButtons.js";
 import ChordButtons from "../../components/ChordButtons/ChordButtons.js";
 import SelectedInput from "../../components/SelectedInput/SelectedInput.js";
-import CodesTable from "../../components/CodesTable/CodesTable.js";
+import CodesTable from "../../components/ChordsTable/ChordsTable.js";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay.js";
 import CheckboxGroup from "../../components/CheckboxGroup/CheckboxGroup.js";
 import { sortArray } from "../../functions/arrayUtils.js";
@@ -42,8 +42,7 @@ function CodeFromDegree() {
       setShowResult(true);
       setScaleCodeData((prevScaleCodeData) => {
         const updatedScaleCodeData = [...prevScaleCodeData];
-        const isCorrect =
-          updatedScaleCodeData[currentIndex].codeName === answer;
+        const isCorrect = updatedScaleCodeData[currentIndex].result === answer;
         updatedScaleCodeData[currentIndex] = {
           ...updatedScaleCodeData[currentIndex],
           isCorrect,

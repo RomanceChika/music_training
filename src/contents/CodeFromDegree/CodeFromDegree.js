@@ -5,7 +5,7 @@ import TimerSettingButtons from "../../components/TimeSettingButtons/TimeSetting
 import ControlButtons from "../../components/ControlButtons/ControlButtons.js";
 import CodeButtons from "../../components/ChordButtons/ChordButtons.js";
 import SelectedInput from "../../components/SelectedInput/SelectedInput.js";
-import CodesTable from "../../components/CodesTable/CodesTable.js";
+import CodesTable from "../../components/ChordsTable/ChordsTable.js";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay.js";
 import CheckboxGroup from "../../components/CheckboxGroup/CheckboxGroup.js";
 import { sortArray } from "../../functions/arrayUtils.js";

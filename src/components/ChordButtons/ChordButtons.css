@@ -30,3 +30,21 @@
   justify-content: space-between; /* ボタン間のスペースを均等に分布させる */
   text-align: left; /* ボタンのテキストを左揃えにする */
 }
+
+.note-buttons {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.accidental-buttons {
+  background-color: #f8f8f8;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chord-type-buttons {
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  padding: 10px;
+}

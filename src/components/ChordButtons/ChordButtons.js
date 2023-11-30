@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ChordButtons.css";
 
 function ChordButtons({ setAnswer }) {
   const [selectedNote, setSelectedNote] = useState("C");
@@ -56,9 +57,9 @@ function ChordButtons({ setAnswer }) {
 
   return (
     <div className="chord-buttons">
-      <div>{noteButtons}</div>
-      <div>{accidentalButtons}</div>
-      <div>{chordTypeButtons}</div>
+      <div className="note-buttons">{noteButtons}</div>
+      <div className="accidental-buttons">{accidentalButtons}</div>
+      <div className="chord-type-buttons">{chordTypeButtons}</div>
     </div>
   );
 }

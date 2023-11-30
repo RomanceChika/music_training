@@ -27,7 +27,7 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <NavLink to="/chord-from-degree" activeClassName="active">
-                    Code From Degree
+                    Chord From Degree
                   </NavLink>
                 </li>
                 <li className="nav-item">

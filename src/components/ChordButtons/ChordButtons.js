@@ -3,25 +3,25 @@ import React, { useState } from "react";
 function ChordButtons({ setAnswer }) {
   const [selectedNote, setSelectedNote] = useState("C");
   const [selectedAccidental, setSelectedAccidental] = useState("");
-  const [selectedCodeType, setSelectedCodeType] = useState("△7");
+  const [selectedChordType, setSelectedChordType] = useState("△7");
 
   const notes = ["C", "D", "E", "F", "G", "A", "B"];
   const accidentals = ["♭♭", "♭", "", "#", "##"];
-  const code_types = ["△7", "m7", "7", "ø7"];
+  const chord_types = ["△7", "m7", "7", "ø7"];
 
   const handleNoteButtonClick = (note) => {
     setSelectedNote(note);
-    setAnswer(note + selectedAccidental);
+    setAnswer(note + selectedAccidental + selectedChordType);
   };
 
   const handleAccidentalButtonClick = (accidental) => {
     setSelectedAccidental(accidental);
-    setAnswer(selectedNote + accidental);
+    setAnswer(selectedNote + accidental + selectedChordType);
   };
 
-  const handleCodeTypeButtonClick = (code_type) => {
-    setSelectedCodeType(code_type);
-    setAnswer(selectedNote + selectedAccidental + code_type);
+  const handleChordTypeButtonClick = (chord_type) => {
+    setSelectedChordType(chord_type);
+    setAnswer(selectedNote + selectedAccidental + chord_type);
   };
 
   const noteButtons = notes.map((note) => (
@@ -44,21 +44,21 @@ function ChordButtons({ setAnswer }) {
     </button>
   ));
 
-  const codeTypeButtons = code_types.map((code_type) => (
+  const chordTypeButtons = chord_types.map((chord_type) => (
     <button
-      key={code_type}
-      onClick={() => handleCodeTypeButtonClick(code_type)}
-      className={selectedCodeType === code_type ? "selected" : ""}
+      key={chord_type}
+      onClick={() => handleChordTypeButtonClick(chord_type)}
+      className={selectedChordType === chord_type ? "selected" : ""}
     >
-      {code_type}
+      {chord_type}
     </button>
   ));
 
   return (
-    <div className="code-buttons">
+    <div className="chord-buttons">
       <div>{noteButtons}</div>
       <div>{accidentalButtons}</div>
-      <div>{codeTypeButtons}</div>
+      <div>{chordTypeButtons}</div>
     </div>
   );
 }

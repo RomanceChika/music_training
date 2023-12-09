@@ -31,6 +31,12 @@ export const INTERVALS = [
   "M7",
 ];
 
+export const CHORD_TYPES = ["△7", "m7", "7", "ø7"];
+
+export const INVERSIONS = ["Root", "1st", "2nd", "3rd"];
+
+export const SCALE_TYPES = ["Major", "NaturalMinor"];
+
 export const SCALES = {
   Major: {
     // 各度数の音程が主音からMajor, Minor, Perfectのいずれかであることを定義
@@ -42,5 +48,16 @@ export const SCALES = {
     SEVENTHS: ["△7", "m7", "m7", "△7", "7", "m7", "ø7"],
     // ディグリー表記の場合の各音のルートの度数
     DEGREES: ["I", "II", "III", "IV", "V", "VI", "VII"],
+  },
+  NaturalMinor: {
+    // 各度数の音程が主音からMajor, Minor, Perfectのいずれかであることを定義
+    INTERVALS: ["P", "M", "m", "P", "P", "m", "m"],
+    NAME: "Natural Minor",
+    // トライアドの場合のコードの種類を定義
+    TRIADS: ["m", "dim", "M", "m", "m", "M", "M"],
+    // 7thコードの場合のコードの種類を定義
+    SEVENTHS: ["m7", "ø7", "△7", "m7", "m7", "△7", "7"],
+    // ディグリー表記の場合の各音のルートの度数
+    DEGREES: ["I", "II", "♭III", "IV", "V", "♭VI", "♭VII"],
   },
 };

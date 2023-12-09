@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import NoteFromInterval from "./contents/NoteFromInterval/NoteFromInterval";
 import ChordFromDegree from "./contents/ChordFromDegree/ChordFromDegree";
+import RandomChord from "./contents/RandomChord/RandomChord";
 import IntervalFromSheet from "./contents/IntervalFromSheet/IntervalFromSheet";
 import "./App.css";
 import { SoundProvider } from "./contexts/SoundContext";
@@ -31,6 +32,11 @@ function App() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
+                  <NavLink to="/random-chord" activeClassName="active">
+                    Random Chord
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink to="/interval-from-sheet" activeClassName="active">
                     Interval From Sheet
                   </NavLink>
@@ -49,6 +55,7 @@ function App() {
                   path="/chord-from-degree"
                   element={<ChordFromDegree />}
                 />
+                <Route path="/random-chord" element={<RandomChord />} />
 
                 <Route
                   path="/interval-from-sheet"

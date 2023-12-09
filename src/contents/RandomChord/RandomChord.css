@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.current-chord {
+  font-size: 3em;
+  font-weight: bold;
+  color: #ff6347; /* Tomato color for better visibility */
+  text-align: center;
+  margin-top: 20px;
+}
+
+.other-text {
+  font-size: 1.5em;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NOTES } from "../../constants/constant.js";
+import { NOTES, SCALE_TYPES } from "../../constants/constant.js";
 import { generateShuffledCombinations } from "../../functions/generateRandomScaleCode.js";
 import TimerSettingButtons from "../../components/TimeSettingButtons/TimeSettingButtons.js";
 import ControlButtons from "../../components/ControlButtons/ControlButtons.js";
@@ -13,9 +13,9 @@ import usePlayNote from "../../sounds/usePlayNote.js";
 import convertSoundToTone from "../../functions/convertSoundToTone.js";
 import getChordTones from "../../functions/getChordTones.js";
 
-function CodeFromDegree() {
+function ChordFromDegree() {
   const [scaleCodeData, setScaleCodeData] = useState(
-    generateShuffledCombinations(NOTES)
+    generateShuffledCombinations(NOTES, SCALE_TYPES[0])
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(10);
@@ -25,6 +25,7 @@ function CodeFromDegree() {
   const [timerSetting, setTimerSetting] = useState(10);
   const [sortedResults, setSortedResults] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState(NOTES);
+  const [selectedScale, setSelectedScale] = useState(SCALE_TYPES[0]);
 
   useEffect(() => {
     setSortedResults(sortArray(scaleCodeData));
@@ -90,9 +91,16 @@ function CodeFromDegree() {
       const newKeys = prevKeys.includes(key)
         ? prevKeys.filter((k) => k !== key)
         : [...prevKeys, key];
-      setScaleCodeData(generateShuffledCombinations(newKeys));
+      setScaleCodeData(generateShuffledCombinations(newKeys, selectedScale));
       return newKeys;
     });
+  };
+
+  const handleScaleChange = (event) => {
+    setSelectedScale(event.target.value);
+    setScaleCodeData(
+      generateShuffledCombinations(selectedKeys, event.target.value)
+    );
   };
 
   const handleStartButtonClick = () => {
@@ -107,7 +115,7 @@ function CodeFromDegree() {
   const handleResetButtonClick = () => {
     setIsStarted(false);
     setCurrentIndex(0);
-    setScaleCodeData(generateShuffledCombinations(selectedKeys));
+    setScaleCodeData(generateShuffledCombinations(selectedKeys, selectedScale));
     setTimeLeft(timerSetting);
   };
 
@@ -118,6 +126,13 @@ function CodeFromDegree() {
         items={NOTES}
         selectedItems={selectedKeys}
         onChange={handleKeyChange}
+        show={!isStarted}
+      />
+      <CheckboxGroup
+        title="対象とするスケール"
+        items={SCALE_TYPES}
+        selectedItems={selectedScale}
+        onChange={handleScaleChange}
         show={!isStarted}
       />
       <ControlButtons
@@ -149,4 +164,4 @@ function CodeFromDegree() {
   );
 }
 
-export default CodeFromDegree;
+export default ChordFromDegree;

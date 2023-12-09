@@ -17,7 +17,7 @@ import { sortArray } from "../../functions/arrayUtils.js";
 function NoteFromInterval() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [answer, setAnswer] = useState("C");
+  const [answer, setAnswer] = useState();
   const [showResult, setShowResult] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
